@@ -102,6 +102,7 @@ body{
   align-items:center;
   gap:6px;
   box-shadow:var(--shadow);
+  order: -1;
 }
 .lang-toggle:hover{
   background:linear-gradient(135deg, var(--accent), var(--accent-dark));
