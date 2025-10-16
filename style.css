@@ -343,12 +343,12 @@ body{
   .hero-text h2{font-size:1.7rem}
   .main-nav{
     display:none;
-    position:fixed;
-    top:70px;
-    right:0;
+    position:absolute;
+    top:60px;
+    right:20px;
     background:white;
     box-shadow:var(--shadow-lg);
-    border-radius:12px 0 0 12px;
+    border-radius:12px;
     padding:20px;
     z-index:100;
     flex-direction:column;
