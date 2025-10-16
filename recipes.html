@@ -1,41 +1,40 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aiieras — الوصفات</title>
-  <meta name="description" content="Discover delicious recipes from Arab and international cuisines with beautiful photos and easy cooking tips. وصفات سهلة من المطبخ العربي والعالمي">
-  <meta name="keywords" content="recipes, وصفات, recettes, cooking, طبخ, cuisine">
+  <title>Aiieras — Recipes</title>
+  <meta name="description" content="Discover delicious recipes from Arab and international cuisines with beautiful photos and easy cooking tips.">
+  <meta name="keywords" content="recipes, cooking, cuisine, food">
   <link rel="icon" type="image/x-icon" href="assets/logo.ico">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <button id="langToggle" class="lang-toggle" aria-label="تغيير اللغة">🌐 AR</button>
       <a href="index.html" style="text-decoration:none"><h1 class="logo">Aiieras</h1></a>
       <nav class="main-nav" id="mainNav">
-        <a href="index.html" data-i18n="nav_home">الرئيسية</a>
-        <a href="recipes.html" data-i18n="nav_recipes">وصفات</a>
-        <a href="about.html" data-i18n="nav_about">عنّي</a>
-        <a href="contact.html" data-i18n="nav_contact">تواصل</a>
+        <a href="index.html">Home</a>
+        <a href="recipes.html">Recipes</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
-      <button id="menuBtn" class="menu-btn" aria-label="قائمة">☰</button>
+      <button id="menuBtn" class="menu-btn" aria-label="Menu">☰</button>
     </div>
   </header>
 
   <main>
     <section class="recipes container" style="padding-top:80px">
-      <h3 class="section-title" data-i18n="recipes_title">الوصفات</h3>
+      <h3 class="section-title">Recipes</h3>
 
       <div class="controls">
-        <input id="searchInput" placeholder="ابحث عن وصفة، مثال: بيتزا، سلطة..." data-placeholder-ar="ابحث عن وصفة، مثال: بيتزا، سلطة..." data-placeholder-en="Search recipes e.g. pizza, salad..." data-placeholder-fr="Rechercher ex: pizza, salade..." />
+        <input id="searchInput" placeholder="Search recipes e.g. pizza, salad..." />
         <select id="filterSelect">
-          <option value="all" data-i18n="filter_all">كل الفئات</option>
-          <option value="main" data-i18n="filter_main">أطباق رئيسية</option>
-          <option value="dessert" data-i18n="filter_dessert">حلويات</option>
-          <option value="quick" data-i18n="filter_quick">سريعة</option>
-          <option value="vegan" data-i18n="filter_vegan">نباتية</option>
+          <option value="all">All categories</option>
+          <option value="main">Main dishes</option>
+          <option value="dessert">Desserts</option>
+          <option value="quick">Quick</option>
+          <option value="vegan">Vegan</option>
         </select>
       </div>
 
@@ -47,7 +46,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p data-i18n="footer_copy">© 2025 Aiieras — جميع الحقوق محفوظة</p>
+      <p>© 2025 Aiieras — All rights reserved</p>
     </div>
   </footer>
 
