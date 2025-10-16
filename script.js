@@ -90,7 +90,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     {id:2, title:{ar:'بقلاوة باللوز',en:'Almond Baklava',fr:'Baklava aux amandes'},cat:'dessert',img:'assets/recipe2.jpg',desc:{ar:'حلوى مقرمشة بطبقات العسل واللوز.',en:'Crispy pastry layered with honey and almonds.',fr:'Pâtisserie croustillante aux couches de miel et amandes.'}},
     {id:3, title:{ar:'سلطة يونانية سريعة',en:'Quick Greek Salad',fr:'Salade grecque rapide'},cat:'quick',img:'assets/recipe3.jpg',desc:{ar:'سلطة منعشة وسهلة التحضير.',en:'A refreshing and easy-to-make salad.',fr:'Une salade rafraîchissante et facile à préparer.'}},
     {id:4, title:{ar:'برغر نباتي',en:'Vegan Burger',fr:'Burger végétalien'},cat:'vegan',img:'assets/recipe4.jpg',desc:{ar:'برغر صحي بنكهة مدخنة.',en:'A healthy burger with a smoky flavor.',fr:'Un burger sain avec une saveur fumée.'}},
-    {id:5, title:{ar:'شوربة العدس',en:'Lentil Soup',fr:'Soupe de lentilles'},cat:'main',img:'assets/recipe5.jpg',desc:{ar:'شوربة دافئة ومغذية.',en:'A warm and nutritious soup.',fr:'Une soupe chaude et nutritive.'}}
+    {id:5, title:{ar:'شوربة العدس',en:'Lentil Soup',fr:'Soupe de lentilles'},cat:'main',img:'assets/recipe5.jpg',desc:{ar:'شوربة دافئة ومغذية.',en:'A warm and nutritious soup.',fr:'Une soupe chaude et nutritive.'}},
+    {id:6, title:{ar:'تاكو نباتي',en:'Veggie Tacos',fr:'Tacos végétariens'},cat:'vegan',img:'assets/recipe1.jpg',desc:{ar:'تاكو مكسيكي صحي بالخضار.',en:'Healthy Mexican tacos with vegetables.',fr:'Tacos mexicains sains aux légumes.'}},
+    {id:7, title:{ar:'كيك الشوكولاتة',en:'Chocolate Cake',fr:'Gâteau au chocolat'},cat:'dessert',img:'assets/recipe2.jpg',desc:{ar:'كيك غني بالشوكولاتة الداكنة.',en:'Rich dark chocolate cake.',fr:'Gâteau riche au chocolat noir.'}},
+    {id:8, title:{ar:'باستا بالطماطم',en:'Tomato Pasta',fr:'Pâtes à la tomate'},cat:'quick',img:'assets/recipe3.jpg',desc:{ar:'باستا سريعة بصلصة الطماطم الطازجة.',en:'Quick pasta with fresh tomato sauce.',fr:'Pâtes rapides à la sauce tomate fraîche.'}}
   ];
 
   const recipesGrid = document.getElementById('recipesGrid');
@@ -129,18 +132,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function render(recList){
     recipesGrid.innerHTML = '';
+    const favs = loadFavorites();
     recList.forEach(r=>{
       const card = document.createElement('article');
       card.className = 'card';
       const title = r.title[currentLang] || r.title['ar'];
       const desc = r.desc[currentLang] || r.desc['ar'];
+      const isFav = favs.includes(r.id);
       card.innerHTML = `
         <img src="${r.img}" alt="${title}" loading="lazy" />
         <h4>${title}</h4>
         <p class="muted">${desc}</p>
         <div class="meta">
           <span>${r.cat}</span>
-          <button class="icon-like" data-id="${r.id}" aria-label="save">♥</button>
+          <button class="icon-like" data-id="${r.id}" aria-label="save" style="background:${isFav?'var(--accent)':'transparent'};color:${isFav?'white':'inherit'}">♥</button>
         </div>
       `;
       recipesGrid.appendChild(card);
@@ -154,9 +159,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if(favs.includes(id)){
           const idx = favs.indexOf(id); favs.splice(idx,1);
           btn.style.background = 'transparent';
+          btn.style.color = 'inherit';
         } else {
           favs.push(id);
-          btn.style.background = '#fde6cf';
+          btn.style.background = 'var(--accent)';
+          btn.style.color = 'white';
         }
         saveFavorites(favs);
       });
