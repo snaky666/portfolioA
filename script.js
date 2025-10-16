@@ -115,9 +115,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const key = el.getAttribute('data-i18n');
       if(i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
     });
-    // placeholders
-    const ph = searchInput.getAttribute('data-placeholder-'+lang) || '';
-    searchInput.placeholder = ph;
+    // placeholders for search input (only on recipes page)
+    if(searchInput){
+      const ph = searchInput.getAttribute('data-placeholder-'+lang) || '';
+      searchInput.placeholder = ph;
+    }
     // contact placeholders
     const cnameEl = document.getElementById('cname');
     const cemailEl = document.getElementById('cemail');
@@ -210,26 +212,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // initial setup
   setDirection(currentLang);
   localizeStatic(currentLang);
-  render(recipes);
+  if(recipesGrid) render(recipes);
   updateLangButton();
 
-  searchInput.addEventListener('input', applyFilters);
-  filterSelect.addEventListener('change', applyFilters);
+  if(searchInput) searchInput.addEventListener('input', applyFilters);
+  if(filterSelect) filterSelect.addEventListener('change', applyFilters);
 
   // contact form demo
   const contactForm = document.getElementById('contactForm');
-  contactForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    alert(i18n[currentLang].btn_send + ' — (تجريبي).');
-    contactForm.reset();
-  });
+  if(contactForm){
+    contactForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      alert(i18n[currentLang].btn_send + ' — (تجريبي).');
+      contactForm.reset();
+    });
+  }
 
   // mobile menu
   const menuBtn = document.getElementById('menuBtn');
   const mainNav = document.getElementById('mainNav');
-  menuBtn.addEventListener('click', ()=> {
-    if(mainNav.style.display === 'flex'){ mainNav.style.display = ''; }
-    else { mainNav.style.display = 'flex'; mainNav.style.flexDirection = 'column'; }
-  });
+  if(menuBtn && mainNav){
+    menuBtn.addEventListener('click', ()=> {
+      if(mainNav.style.display === 'flex'){ mainNav.style.display = ''; }
+      else { mainNav.style.display = 'flex'; mainNav.style.flexDirection = 'column'; }
+    });
+  }
 
 });

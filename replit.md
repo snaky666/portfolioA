@@ -1,18 +1,28 @@
 # Aiieras - Trilingual Recipe Website
 
 ## Overview
-Aiieras is a static recipe website supporting three languages: Arabic (RTL), English, and French. Users can browse recipes, filter by category, search, and save favorites to local storage. The site features a clean, modern design with Palm Oil and Coconut color palette.
+Aiieras is a multi-page static recipe website supporting three languages: Arabic (RTL), English, and French. Users can browse recipes, filter by category, search, and save favorites to local storage. The site features a clean, modern design with Palm Oil and Coconut color palette.
+
+## Pages
+- **index.html** - Home page with hero section
+- **recipes.html** - Browse and search recipes
+- **about.html** - About the author
+- **contact.html** - Contact form
 
 ## Project Structure
 ```
 /
-├── index.html          # Main HTML file
+├── index.html          # Home page (hero section)
+├── recipes.html        # Recipes page with search and filter
+├── about.html          # About the author page
+├── contact.html        # Contact form page
 ├── style.css           # Styling with RTL support
 ├── script.js           # JavaScript for i18n, recipes, and interactions
 ├── server.py           # Python HTTP server with cache control
 ├── assets/             # Images for hero, author, and recipes
 │   ├── hero.jpg
 │   ├── author.jpg
+│   ├── logo.ico
 │   └── recipe[1-5].jpg
 └── README.txt          # Original project documentation
 ```

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aiieras — الرئيسية</title>
+  <title>Aiieras — تواصل</title>
   <meta name="description" content="Discover delicious recipes from Arab and international cuisines with beautiful photos and easy cooking tips. وصفات سهلة من المطبخ العربي والعالمي">
   <meta name="keywords" content="recipes, وصفات, recettes, cooking, طبخ, cuisine">
   <link rel="icon" type="image/x-icon" href="assets/logo.ico">
@@ -25,17 +25,15 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <h2 data-i18n="hero_title">نُسرّ بك في Aiieras</h2>
-          <p data-i18n="hero_sub">وصفات سهلة، صور جذابة، ونصائح مطبخية تجعل الطبخ يوميًا ممتعًا.</p>
-          <a class="btn" href="recipes.html" data-i18n="btn_browse">تصفح الوصفات</a>
-        </div>
-        <div class="hero-image">
-          <img src="assets/hero.jpg" alt="طبق شهي — Aiieras" />
-        </div>
-      </div>
+    <section class="contact container" style="padding-top:100px; min-height:70vh">
+      <h3 class="section-title" data-i18n="contact_title">تواصل معي</h3>
+      <form id="contactForm" class="contact-form">
+        <label data-i18n="label_name">الاسم<input type="text" id="cname" required placeholder="" /></label>
+        <label data-i18n="label_email">البريد الإلكتروني<input type="email" id="cemail" required placeholder="" /></label>
+        <label data-i18n="label_msg">الرسالة<textarea id="cmsg" rows="4" required placeholder=""></textarea></label>
+        <button class="btn" type="submit" data-i18n="btn_send">أرسل</button>
+      </form>
+      <p class="muted" data-i18n="contact_alt">أو أرسل رسالة عبر البريد: contact@flavorya.example</p>
     </section>
   </main>
 

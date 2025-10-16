@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aiieras — الرئيسية</title>
+  <title>Aiieras — الوصفات</title>
   <meta name="description" content="Discover delicious recipes from Arab and international cuisines with beautiful photos and easy cooking tips. وصفات سهلة من المطبخ العربي والعالمي">
   <meta name="keywords" content="recipes, وصفات, recettes, cooking, طبخ, cuisine">
   <link rel="icon" type="image/x-icon" href="assets/logo.ico">
@@ -25,16 +25,22 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <h2 data-i18n="hero_title">نُسرّ بك في Aiieras</h2>
-          <p data-i18n="hero_sub">وصفات سهلة، صور جذابة، ونصائح مطبخية تجعل الطبخ يوميًا ممتعًا.</p>
-          <a class="btn" href="recipes.html" data-i18n="btn_browse">تصفح الوصفات</a>
-        </div>
-        <div class="hero-image">
-          <img src="assets/hero.jpg" alt="طبق شهي — Aiieras" />
-        </div>
+    <section class="recipes container" style="padding-top:80px">
+      <h3 class="section-title" data-i18n="recipes_title">الوصفات</h3>
+
+      <div class="controls">
+        <input id="searchInput" placeholder="ابحث عن وصفة، مثال: بيتزا، سلطة..." data-placeholder-ar="ابحث عن وصفة، مثال: بيتزا، سلطة..." data-placeholder-en="Search recipes e.g. pizza, salad..." data-placeholder-fr="Rechercher ex: pizza, salade..." />
+        <select id="filterSelect">
+          <option value="all" data-i18n="filter_all">كل الفئات</option>
+          <option value="main" data-i18n="filter_main">أطباق رئيسية</option>
+          <option value="dessert" data-i18n="filter_dessert">حلويات</option>
+          <option value="quick" data-i18n="filter_quick">سريعة</option>
+          <option value="vegan" data-i18n="filter_vegan">نباتية</option>
+        </select>
+      </div>
+
+      <div id="recipesGrid" class="grid">
+        <!-- populated by JS -->
       </div>
     </section>
   </main>
