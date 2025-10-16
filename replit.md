@@ -1,7 +1,7 @@
-# Flavorya - Trilingual Recipe Website
+# Aiieras - Trilingual Recipe Website
 
 ## Overview
-Flavorya is a static recipe website supporting three languages: Arabic (RTL), English, and French. Users can browse recipes, filter by category, search, and save favorites to local storage. The site features a clean, modern design with a warm color palette.
+Aiieras is a static recipe website supporting three languages: Arabic (RTL), English, and French. Users can browse recipes, filter by category, search, and save favorites to local storage. The site features a clean, modern design with Palm Oil and Coconut color palette.
 
 ## Project Structure
 ```

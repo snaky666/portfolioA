@@ -1,18 +1,18 @@
 /* style.css — tri-lingual site (RTL handled by JS) */
 :root{
-  --bg:#fbf7f3;
+  --bg:#fffaf0;
   --card:#fff;
-  --accent:#c99b58;
-  --accent-dark:#b8864a;
-  --accent-light:#fde6cf;
-  --muted:#7b6a61;
+  --accent:#d3b078;
+  --accent-dark:#965a3e;
+  --accent-light:#f4f0e7;
+  --muted:#79513E;
   --text:#2a2a2a;
   --radius:12px;
   --container:1100px;
   --gap:18px;
-  --shadow: 0 6px 18px rgba(42,42,42,0.08);
-  --shadow-hover: 0 12px 28px rgba(42,42,42,0.15);
-  --shadow-lg: 0 20px 40px rgba(42,42,42,0.12);
+  --shadow: 0 6px 18px rgba(150,90,62,0.12);
+  --shadow-hover: 0 12px 28px rgba(150,90,62,0.2);
+  --shadow-lg: 0 20px 40px rgba(150,90,62,0.15);
   font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
 }
 
@@ -39,14 +39,27 @@ body{
   transition: all 0.3s ease;
 }
 .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;}
-.logo{
+.logo-container{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logo-img{
+  width:45px;
+  height:45px;
+  object-fit:contain;
+  border-radius:8px;
+  background:white;
+  padding:4px;
+}
+.logo-text{
   font-family: 'Segoe UI', Tahoma; 
   margin:0;
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size:1.4rem;
+  font-size:1.5rem;
   letter-spacing:1px;
   font-weight:800;
 }
@@ -307,7 +320,7 @@ body{
   text-align:center;
   border-top:1px solid rgba(0,0,0,0.08);
   margin-top:60px;
-  background:linear-gradient(180deg, transparent, rgba(201,155,88,0.05));
+  background:linear-gradient(180deg, transparent, rgba(211,176,120,0.05));
 }
 .site-footer p{margin:8px 0}
 

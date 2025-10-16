@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       nav_recipes: "Recipes",
       nav_about: "About",
       nav_contact: "Contact",
-      hero_title: "Welcome to Flavorya",
+      hero_title: "Welcome to Aiieras",
       hero_sub: "Easy recipes, beautiful photos, and kitchen tips to make cooking joyful.",
       btn_browse: "Browse Recipes",
       recipes_title: "Recipes",
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       label_msg: "Message",
       btn_send: "Send",
       contact_alt: "Or send an email: contact@flavorya.example",
-      footer_copy: "© 2025 Flavorya — All rights reserved",
+      footer_copy: "© 2025 Aiieras — All rights reserved",
       footer_note: "Design inspired by Moribyan.com — For learning/personal use"
     },
     fr: {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       nav_recipes: "Recettes",
       nav_about: "À propos",
       nav_contact: "Contact",
-      hero_title: "Bienvenue sur Flavorya",
+      hero_title: "Bienvenue sur Aiieras",
       hero_sub: "Recettes simples, belles photos et conseils de cuisine pour rendre la cuisine agréable.",
       btn_browse: "Parcourir les recettes",
       recipes_title: "Recettes",
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       label_msg: "Message",
       btn_send: "Envoyer",
       contact_alt: "Ou envoyez un email : contact@flavorya.example",
-      footer_copy: "© 2025 Flavorya — Tous droits réservés",
+      footer_copy: "© 2025 Aiieras — Tous droits réservés",
       footer_note: "Design inspiré de Moribyan.com — Pour apprentissage/usage personnel"
     },
     ar: {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       nav_recipes: "وصفات",
       nav_about: "عنّي",
       nav_contact: "تواصل",
-      hero_title: "نُسرّ بك في Flavorya",
+      hero_title: "نُسرّ بك في Aiieras",
       hero_sub: "وصفات سهلة، صور جذابة، ونصائح مطبخية تجعل الطبخ يوميًا ممتعًا.",
       btn_browse: "تصفح الوصفات",
       recipes_title: "الوصفات",
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       label_msg: "الرسالة",
       btn_send: "أرسل",
       contact_alt: "أو أرسل رسالة عبر البريد: contact@flavorya.example",
-      footer_copy: "© 2025 Flavorya — جميع الحقوق محفوظة",
+      footer_copy: "© 2025 Aiieras — جميع الحقوق محفوظة",
       footer_note: "تصميم مستوحى من Moribyan.com — للتعلم/الاستخدام الشخصي"
     }
   };
