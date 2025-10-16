@@ -119,9 +119,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const ph = searchInput.getAttribute('data-placeholder-'+lang) || '';
     searchInput.placeholder = ph;
     // contact placeholders
-    document.getElementById('cname').placeholder = i18n[lang].label_name || '';
-    document.getElementById('cemail').placeholder = i18n[lang].label_email || '';
-    document.getElementById('cmsg').placeholder = i18n[lang].label_msg || '';
+    const cnameEl = document.getElementById('cname');
+    const cemailEl = document.getElementById('cemail');
+    const cmsgEl = document.getElementById('cmsg');
+    if(cnameEl) cnameEl.placeholder = i18n[lang].label_name || '';
+    if(cemailEl) cemailEl.placeholder = i18n[lang].label_email || '';
+    if(cmsgEl) cmsgEl.placeholder = i18n[lang].label_msg || '';
   }
 
   function render(recList){
