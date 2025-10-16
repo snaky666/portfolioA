@@ -190,22 +190,31 @@ document.addEventListener('DOMContentLoaded', ()=>{
     render(filtered);
   }
 
-  // language switcher
-  document.querySelectorAll('.lang-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const lang = btn.dataset.lang;
-      currentLang = lang;
-      localStorage.setItem('site_lang', lang);
-      setDirection(lang);
-      localizeStatic(lang);
-      applyFilters();
-    });
+  // language switcher - single toggle button
+  const langToggle = document.getElementById('langToggle');
+  const languages = ['ar', 'en', 'fr'];
+  const langLabels = {ar: 'AR', en: 'EN', fr: 'FR'};
+  
+  function updateLangButton(){
+    langToggle.textContent = `🌐 ${langLabels[currentLang]}`;
+  }
+  
+  langToggle.addEventListener('click', ()=>{
+    const currentIndex = languages.indexOf(currentLang);
+    const nextIndex = (currentIndex + 1) % languages.length;
+    currentLang = languages[nextIndex];
+    localStorage.setItem('site_lang', currentLang);
+    setDirection(currentLang);
+    localizeStatic(currentLang);
+    applyFilters();
+    updateLangButton();
   });
 
   // initial setup
   setDirection(currentLang);
   localizeStatic(currentLang);
   render(recipes);
+  updateLangButton();
 
   searchInput.addEventListener('input', applyFilters);
   filterSelect.addEventListener('change', applyFilters);
