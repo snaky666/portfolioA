@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       if(i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
     });
     // placeholders for search input (only on recipes page)
-    if(searchInput){
+    if(searchInput && searchInput.getAttribute){
       const ph = searchInput.getAttribute('data-placeholder-'+lang) || '';
       searchInput.placeholder = ph;
     }
@@ -233,8 +233,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const mainNav = document.getElementById('mainNav');
   if(menuBtn && mainNav){
     menuBtn.addEventListener('click', ()=> {
-      if(mainNav.style.display === 'flex'){ mainNav.style.display = ''; }
-      else { mainNav.style.display = 'flex'; mainNav.style.flexDirection = 'column'; }
+      mainNav.classList.toggle('mobile-active');
+    });
+    // close menu when clicking on a link
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('mobile-active');
+      });
     });
   }
 
