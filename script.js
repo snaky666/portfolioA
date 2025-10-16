@@ -25,8 +25,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       label_msg: "Message",
       btn_send: "Send",
       contact_alt: "Or send an email: contact@flavorya.example",
-      footer_copy: "© 2025 Aiieras — All rights reserved",
-      footer_note: "Design inspired by Moribyan.com — For learning/personal use"
+      footer_copy: "© 2025 Aiieras — All rights reserved"
     },
     fr: {
       nav_home: "Accueil",
@@ -51,8 +50,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       label_msg: "Message",
       btn_send: "Envoyer",
       contact_alt: "Ou envoyez un email : contact@flavorya.example",
-      footer_copy: "© 2025 Aiieras — Tous droits réservés",
-      footer_note: "Design inspiré de Moribyan.com — Pour apprentissage/usage personnel"
+      footer_copy: "© 2025 Aiieras — Tous droits réservés"
     },
     ar: {
       nav_home: "الرئيسية",
@@ -77,8 +75,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       label_msg: "الرسالة",
       btn_send: "أرسل",
       contact_alt: "أو أرسل رسالة عبر البريد: contact@flavorya.example",
-      footer_copy: "© 2025 Aiieras — جميع الحقوق محفوظة",
-      footer_note: "تصميم مستوحى من Moribyan.com — للتعلم/الاستخدام الشخصي"
+      footer_copy: "© 2025 Aiieras — جميع الحقوق محفوظة"
     }
   };
 
