@@ -1,4 +1,6 @@
 /* style.css — tri-lingual site (RTL handled by JS) */
+@import url('https://fonts.googleapis.com/css2?family=Katibeh&display=swap');
+
 :root{
   --bg:#fffaf0;
   --card:#fff;
@@ -13,7 +15,7 @@
   --shadow: 0 6px 18px rgba(150,90,62,0.12);
   --shadow-hover: 0 12px 28px rgba(150,90,62,0.2);
   --shadow-lg: 0 20px 40px rgba(150,90,62,0.15);
-  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  font-family: 'Katibeh', 'Segoe UI', Tahoma, Arial, sans-serif;
 }
 
 *{box-sizing:border-box}
@@ -40,7 +42,7 @@ body{
 }
 .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;}
 .logo{
-  font-family: 'Georgia', 'Times New Roman', serif; 
+  font-family: 'Katibeh', 'Georgia', 'Times New Roman', serif; 
   margin:0;
   background: linear-gradient(135deg, var(--accent), var(--accent-dark), var(--accent));
   background-size: 200% 200%;
