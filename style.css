@@ -341,11 +341,12 @@ body{
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr; padding-top:8px}
   .hero-text h2{font-size:1.7rem}
+  .header-inner{position:relative;}
   .main-nav{
     display:none;
     position:absolute;
-    top:60px;
-    right:20px;
+    top:calc(100% + 8px);
+    left:0;
     background:white;
     box-shadow:var(--shadow-lg);
     border-radius:12px;
