@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aiieras — Lifestyle</title>
+  <meta name="description" content="Explore our culinary lifestyle tips, kitchen wisdom, and healthy eating habits for a better cooking experience.">
+  <meta name="keywords" content="cooking lifestyle, kitchen tips, healthy eating, culinary wisdom, food culture">
+  <link rel="icon" type="image/x-icon" href="assets/logo.ico">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .lifestyle-hero {
+      background: linear-gradient(135deg, rgba(212,197,176,0.1) 0%, rgba(212,197,176,0.05) 100%);
+      padding: 80px 0 60px;
+      margin-bottom: 60px;
+      border-radius: 0 0 40px 40px;
+    }
+    
+    .lifestyle-hero h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin: 0 0 20px;
+      color: var(--black);
+      text-align: center;
+      letter-spacing: -1.5px;
+    }
+    
+    .lifestyle-hero p {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    
+    .lifestyle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    
+    .lifestyle-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(212,197,176,0.15);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .lifestyle-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--beige-dark), var(--beige-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .lifestyle-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .lifestyle-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(212,197,176,0.3);
+    }
+    
+    .lifestyle-card-icon {
+      font-size: 3rem;
+      margin-bottom: 24px;
+      display: inline-block;
+      filter: grayscale(0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .lifestyle-card:hover .lifestyle-card-icon {
+      transform: scale(1.15) rotate(5deg);
+      filter: grayscale(0);
+    }
+    
+    .lifestyle-card h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    
+    .lifestyle-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 0 0 16px;
+      font-size: 1rem;
+    }
+    
+    .lifestyle-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 0;
+    }
+    
+    .lifestyle-card li {
+      padding: 10px 0;
+      color: var(--charcoal);
+      position: relative;
+      padding-left: 24px;
+      line-height: 1.6;
+    }
+    
+    .lifestyle-card li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--beige-dark);
+      font-weight: bold;
+    }
+    
+    .quote-section {
+      background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%);
+      color: var(--white);
+      padding: 80px 0;
+      margin: 80px 0;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .quote-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212,197,176,0.15) 0%, transparent 70%);
+      animation: rotateQuote 20s linear infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes rotateQuote {
+      to { transform: rotate(360deg); }
+    }
+    
+    .quote-section blockquote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+      font-style: italic;
+      letter-spacing: -0.5px;
+    }
+    
+    .quote-section cite {
+      display: block;
+      margin-top: 24px;
+      font-size: 1.1rem;
+      color: var(--beige-light);
+      font-style: normal;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .tips-section {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 60px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(212,197,176,0.2);
+    }
+    
+    .tips-section h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0 0 40px;
+      color: var(--black);
+      text-align: center;
+      letter-spacing: -1px;
+    }
+    
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    
+    .tip-item {
+      padding: 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(212,197,176,0.05), rgba(212,197,176,0.02));
+      border: 1px solid rgba(212,197,176,0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .tip-item:hover {
+      background: linear-gradient(135deg, rgba(212,197,176,0.1), rgba(212,197,176,0.05));
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+    
+    .tip-item strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--black);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    
+    .tip-item span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    
+    @media (max-width: 900px) {
+      .lifestyle-hero h2 {
+        font-size: 2.5rem;
+      }
+      
+      .lifestyle-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .quote-section blockquote {
+        font-size: 1.8rem;
+      }
+      
+      .tips-section {
+        padding: 40px 24px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .lifestyle-hero h2 {
+        font-size: 2rem;
+      }
+      
+      .lifestyle-card {
+        padding: 28px;
+      }
+      
+      .quote-section {
+        padding: 60px 24px;
+      }
+      
+      .quote-section blockquote {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" style="text-decoration:none"><h1 class="logo">Aiieras</h1></a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="recipes.html">Recipes</a>
+        <a href="lifestyle.html">Lifestyle</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="menuBtn" class="menu-btn" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="lifestyle-hero">
+      <div class="container">
+        <h2>Culinary Lifestyle</h2>
+        <p>Embrace the art of mindful cooking, discover kitchen wisdom, and cultivate healthy eating habits that nourish both body and soul.</p>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="lifestyle-grid">
+        <article class="lifestyle-card">
+          <div class="lifestyle-card-icon">🌿</div>
+          <h3>Mindful Eating</h3>
+          <p>Transform your relationship with food through conscious, intentional eating practices that honor your body and enhance your well-being.</p>
+          <ul>
+            <li>Eat slowly and savor each bite</li>
+            <li>Listen to your body's hunger cues</li>
+            <li>Choose whole, unprocessed foods</li>
+            <li>Practice gratitude before meals</li>
+            <li>Minimize distractions while eating</li>
+          </ul>
+        </article>
+
+        <article class="lifestyle-card">
+          <div class="lifestyle-card-icon">🔪</div>
+          <h3>Kitchen Wisdom</h3>
+          <p>Master the essential skills and timeless techniques that elevate your cooking from ordinary to extraordinary.</p>
+          <ul>
+            <li>Keep your knives sharp and clean</li>
+            <li>Prep ingredients before cooking</li>
+            <li>Taste as you cook to adjust seasoning</li>
+            <li>Use fresh herbs for maximum flavor</li>
+            <li>Organize your workspace efficiently</li>
+          </ul>
+        </article>
+
+        <article class="lifestyle-card">
+          <div class="lifestyle-card-icon">🥗</div>
+          <h3>Balanced Nutrition</h3>
+          <p>Create colorful, nutrient-dense meals that fuel your body and delight your senses with every bite.</p>
+          <ul>
+            <li>Fill half your plate with vegetables</li>
+            <li>Include lean proteins daily</li>
+            <li>Choose whole grains over refined</li>
+            <li>Stay hydrated throughout the day</li>
+            <li>Plan meals to reduce waste</li>
+          </ul>
+        </article>
+
+        <article class="lifestyle-card">
+          <div class="lifestyle-card-icon">♻️</div>
+          <h3>Sustainable Cooking</h3>
+          <p>Make eco-conscious choices in the kitchen that benefit both your health and the planet for future generations.</p>
+          <ul>
+            <li>Buy seasonal and local produce</li>
+            <li>Reduce food waste with smart storage</li>
+            <li>Compost organic scraps</li>
+            <li>Use reusable containers and bags</li>
+            <li>Support sustainable farming practices</li>
+          </ul>
+        </article>
+
+        <article class="lifestyle-card">
+          <div class="lifestyle-card-icon">⏰</div>
+          <h3>Meal Planning</h3>
+          <p>Save time, reduce stress, and eat better by planning your meals ahead with intention and creativity.</p>
+          <ul>
+            <li>Plan weekly menus on weekends</li>
+            <li>Batch cook staple ingredients</li>
+            <li>Keep a well-stocked pantry</li>
+            <li>Prep vegetables in advance</li>
+            <li>Make extra for leftovers</li>
+          </ul>
+        </article>
+
+        <article class="lifestyle-card">
+          <div class="lifestyle-card-icon">❤️</div>
+          <h3>Cooking with Love</h3>
+          <p>Infuse every dish with positive energy, creativity, and care to create memorable meals that bring people together.</p>
+          <ul>
+            <li>Cook with intention and presence</li>
+            <li>Share meals with loved ones</li>
+            <li>Try new recipes regularly</li>
+            <li>Create family cooking traditions</li>
+            <li>Make cooking a joyful practice</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="quote-section container">
+      <blockquote>
+        "Cooking is like love. It should be entered into with abandon or not at all."
+      </blockquote>
+      <cite>— Harriet van Horne</cite>
+    </section>
+
+    <section class="container">
+      <div class="tips-section">
+        <h3>Quick Kitchen Tips</h3>
+        <div class="tips-grid">
+          <div class="tip-item">
+            <strong>Salt Pasta Water</strong>
+            <span>Add salt to boiling water before cooking pasta for better flavor absorption.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Room Temperature Ingredients</strong>
+            <span>Let eggs and butter reach room temperature for better baking results.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Sharp Knives</strong>
+            <span>A sharp knife is safer and more efficient than a dull one.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Heat Your Pan</strong>
+            <span>Preheat your pan before adding oil or ingredients for even cooking.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Rest Your Meat</strong>
+            <span>Let cooked meat rest 5-10 minutes before slicing to retain juices.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Acid Brightens Dishes</strong>
+            <span>A squeeze of lemon or splash of vinegar can elevate any dish.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Save Pasta Water</strong>
+            <span>Starchy pasta water is perfect for thinning and binding sauces.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Taste Before Serving</strong>
+            <span>Always taste your dish and adjust seasoning before plating.</span>
+          </div>
+          <div class="tip-item">
+            <strong>Fresh Herbs Last</strong>
+            <span>Add delicate fresh herbs at the end of cooking to preserve flavor.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Aiieras — All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
