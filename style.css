@@ -219,6 +219,107 @@ body::before {
   width: 60%;
 }
 
+/* Header Actions - Social Icons & Search */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--charcoal);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.social-icons a svg {
+  width: 18px;
+  height: 18px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-icons a:hover {
+  color: var(--black);
+  transform: translateY(-2px);
+}
+
+.social-icons a:hover svg {
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.header-search {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(212, 197, 176, 0.08);
+  border-radius: 24px;
+  padding: 6px 8px 6px 16px;
+  border: 1px solid rgba(212, 197, 176, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-search:hover,
+.header-search:focus-within {
+  background: rgba(212, 197, 176, 0.12);
+  border-color: rgba(212, 197, 176, 0.4);
+  box-shadow: 0 4px 12px rgba(212, 197, 176, 0.15);
+}
+
+.header-search input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--charcoal);
+  width: 100px;
+  font-family: 'Inter', sans-serif;
+  padding: 4px 0;
+}
+
+.header-search input::placeholder {
+  color: var(--gray);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.header-search button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--charcoal);
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-search button:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--black);
+  transform: scale(1.1);
+}
+
+.header-search button svg {
+  width: 18px;
+  height: 18px;
+}
+
 .menu-btn {
   display: none;
   background: none;
@@ -228,6 +329,7 @@ body::before {
   cursor: pointer;
   color: var(--charcoal);
   transition: all 0.3s ease;
+  margin-left: 12px;
 }
 
 .menu-btn:hover {
@@ -848,6 +950,10 @@ body::before {
   
   .main-nav a:hover {
     background: rgba(212,197,176,0.15);
+  }
+  
+  .header-actions {
+    display: none;
   }
   
   .menu-btn {

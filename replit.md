@@ -49,6 +49,21 @@ Aiieras is a multi-page static recipe website supporting three languages: Arabic
 
 ## Recent Setup & Updates
 
+### Oct 17, 2025 - Social Media Icons & Header Search Added
+- **Added social media icons** to header (top right):
+  * Instagram, TikTok, YouTube, Pinterest, Twitter/X icons
+  * Clean, minimalist design with hover effects
+  * Icons scale and lift on hover with drop-shadow animations
+- **Added search bar** to header:
+  * Sleek search input with "SEARCH" placeholder
+  * Rounded design with beige background
+  * Search icon button with hover interactions
+  * Integrated seamlessly with existing header design
+- **Responsive behavior**:
+  * Icons and search hidden on mobile (< 900px) to keep header clean
+  * Mobile menu button appears for navigation
+- All 5 pages updated: index, recipes, lifestyle, about, contact
+
 ### Oct 17, 2025 - Premium CSS Upgrade & Lifestyle Page
 - **Complete CSS overhaul** with beige/black/white color palette:
   * Replaced palm oil/coconut colors with sophisticated beige (#d4c5b0), black (#0a0a0a), white (#ffffff)
