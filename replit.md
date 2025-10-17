@@ -49,18 +49,27 @@ Aiieras is a multi-page static recipe website supporting three languages: Arabic
 
 ## Recent Setup & Updates
 
-### Oct 17, 2025 - Social Media Icons & Header Search Added
-- **Added social media icons** to header (top right):
+### Oct 17, 2025 - Social Media Icons in Header & Footer + Search Bar
+- **Added social media icons to header** (top right):
   * Instagram, TikTok, YouTube, Pinterest, Twitter/X icons
   * Clean, minimalist design with hover effects
   * Icons scale and lift on hover with drop-shadow animations
+- **Added social media icons to footer** (bottom center):
+  * Same 5 social icons centered above copyright text
+  * Hover effect: icons lift and scale with shadow
+  * Consistent styling across header and footer
 - **Added search bar** to header:
   * Sleek search input with "SEARCH" placeholder
   * Rounded design with beige background
   * Search icon button with hover interactions
   * Integrated seamlessly with existing header design
+- **Logo adjustments**:
+  * Raised logo 3px higher
+  * Shifted logo 8px to the left
+  * Updated hover animation to maintain new position
 - **Responsive behavior**:
-  * Icons and search hidden on mobile (< 900px) to keep header clean
+  * Header icons and search hidden on mobile (< 900px) to keep header clean
+  * Footer icons remain visible on all screen sizes
   * Mobile menu button appears for navigation
 - All 5 pages updated: index, recipes, lifestyle, about, contact
 
