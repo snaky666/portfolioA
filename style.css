@@ -130,14 +130,16 @@ body::before {
   position: relative;
   cursor: pointer;
   color: var(--black);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   flex-shrink: 0;
 }
 
 .logo:hover {
-  transform: scale(1.05) translateY(-5px);
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  transform: scale(1.1) translateY(-3px) rotate(-2deg);
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+  color: var(--beige-dark);
+  letter-spacing: 3px;
 }
 
 @keyframes logoGradient {
@@ -173,13 +175,31 @@ body::before {
   font-weight: 500;
   font-size: 0.9rem;
   position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--beige-dark), var(--beige-light));
+  transform: translateX(-50%);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .main-nav a:hover {
   color: var(--black);
+  transform: translateY(-2px);
+  letter-spacing: 1px;
+}
+
+.main-nav a:hover::after {
+  width: 100%;
 }
 
 /* Header Actions - Social Icons & Search */
@@ -203,18 +223,40 @@ body::before {
   width: 20px;
   height: 20px;
   color: var(--charcoal);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+}
+
+.social-icons a::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(135deg, var(--beige-light), var(--beige));
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
 }
 
 .social-icons a svg {
   width: 16px;
   height: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .social-icons a:hover {
   color: var(--black);
+  transform: translateY(-3px) rotate(5deg) scale(1.2);
+}
+
+.social-icons a:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.social-icons a:hover svg {
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
 
 .header-search {
@@ -222,10 +264,32 @@ body::before {
   align-items: center;
   gap: 0;
   background: transparent;
-  border-radius: 0;
+  border-radius: 20px;
   padding: 0;
-  border: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-search::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212,197,176,0.1), rgba(212,197,176,0.05));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 20px;
+}
+
+.header-search:hover {
+  border-color: var(--beige-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212,197,176,0.3);
+}
+
+.header-search:hover::before {
+  opacity: 1;
 }
 
 .header-search input {
@@ -238,35 +302,52 @@ body::before {
   color: var(--charcoal);
   width: 80px;
   font-family: 'Inter', sans-serif;
-  padding: 4px 8px;
+  padding: 6px 8px;
   text-transform: uppercase;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.header-search:hover input {
+  letter-spacing: 1.5px;
+  width: 100px;
 }
 
 .header-search input::placeholder {
   color: var(--charcoal);
   font-weight: 500;
   letter-spacing: 1px;
+  transition: all 0.4s ease;
+}
+
+.header-search:hover input::placeholder {
+  color: var(--black);
 }
 
 .header-search button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--charcoal);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .header-search button:hover {
   color: var(--black);
+  transform: rotate(90deg) scale(1.2);
 }
 
 .header-search button svg {
   width: 16px;
   height: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mobile-social {
@@ -281,13 +362,31 @@ body::before {
   padding: 8px;
   cursor: pointer;
   color: var(--charcoal);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   margin-left: 12px;
+  position: relative;
+}
+
+.menu-btn::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(135deg, var(--beige-light), var(--beige));
+  border-radius: 8px;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
 }
 
 .menu-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.2) rotate(90deg);
   color: var(--black);
+}
+
+.menu-btn:hover::before {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* Hero Section - Premium Design */
