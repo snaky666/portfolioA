@@ -322,6 +322,10 @@ body::before {
   height: 18px;
 }
 
+.mobile-social {
+  display: none;
+}
+
 .menu-btn {
   display: none;
   background: none;
@@ -985,6 +989,43 @@ body::before {
   
   .main-nav a:hover {
     background: rgba(212,197,176,0.15);
+  }
+  
+  .mobile-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(212,197,176,0.2);
+  }
+  
+  .mobile-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    color: var(--charcoal);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+  }
+  
+  .mobile-social a svg {
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .mobile-social a:hover {
+    color: var(--black);
+    background: transparent;
+    transform: translateY(-2px) scale(1.1);
+  }
+  
+  .mobile-social a:hover svg {
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
   }
   
   .header-actions {
