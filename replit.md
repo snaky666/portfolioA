@@ -49,6 +49,35 @@ Aiieras is a multi-page static recipe website supporting three languages: Arabic
 
 ## Recent Setup & Updates
 
+### Oct 18, 2025 - Admin Panel System
+- **New admin panel** accessible via triple-click on logo:
+  * Secure login system (username: amira19, password: amira19)
+  * Session-based authentication using sessionStorage
+  * Professional admin dashboard with tabs
+  * Add Recipe functionality with full form
+  * Content management interface (tabs for recipes/pages/images)
+- **Admin features**:
+  * Add new recipes with title, category, image, date, and favorite status
+  * Recipes saved to localStorage and automatically appear on main recipes page
+  * Success notifications for user feedback
+  * Logout functionality that redirects to home page
+- **Security Notes**:
+  * **Important**: This is a client-side demo system only
+  * Credentials are in frontend JavaScript (visible to anyone viewing page source)
+  * No server-side validation - sessionStorage can be manipulated via browser console
+  * localStorage recipes can be edited by any user with browser developer tools
+  * **For production use**: Would need backend authentication, database, and server-side validation
+  * Current setup is suitable for personal use or demo purposes only
+- **UI/UX**:
+  * Clean, professional admin interface matching site design
+  * Responsive design for mobile and desktop
+  * Tab-based navigation for different admin functions
+  * Form validation and user feedback
+- **Triple-click detection**:
+  * JavaScript event listener on logo
+  * 500ms timeout window for triple-click detection
+  * Automatic redirect to admin.html
+
 ### Oct 18, 2025 - Recipes Page Redesign - Simple Magazine Layout
 - **Complete Recipes page redesign** with clean, minimalist magazine-style layout:
   * Removed search and filter controls for cleaner appearance
