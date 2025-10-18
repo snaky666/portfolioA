@@ -71,4 +71,27 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
+  // Admin panel access - triple click on logo
+  const logo = document.querySelector('.logo');
+  if(logo) {
+    let clickCount = 0;
+    let clickTimer = null;
+    
+    logo.addEventListener('click', (e) => {
+      clickCount++;
+      
+      if(clickTimer) clearTimeout(clickTimer);
+      
+      if(clickCount === 3) {
+        e.preventDefault();
+        window.location.href = 'admin.html';
+        clickCount = 0;
+      }
+      
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+      }, 500);
+    });
+  }
+
 });
