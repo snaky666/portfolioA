@@ -1,16 +1,33 @@
-// script.js — recipes, search, favorites
-document.addEventListener('DOMContentLoaded', ()=>{
+// script.js — recipes, search, favorites with optional Supabase support
+import { supabase, isSupabaseAvailable, defaultRecipes } from './supabase-config.js';
 
-  const recipes = [
-    {id:1, title:'Vegetable Couscous', cat:'main', img:'assets/recipe1.jpg', desc:'A traditional Maghrebi dish with fresh vegetables.'},
-    {id:2, title:'Almond Baklava', cat:'dessert', img:'assets/recipe2.jpg', desc:'Crispy pastry layered with honey and almonds.'},
-    {id:3, title:'Quick Greek Salad', cat:'quick', img:'assets/recipe3.jpg', desc:'A refreshing and easy-to-make salad.'},
-    {id:4, title:'Vegan Burger', cat:'vegan', img:'assets/recipe4.jpg', desc:'A healthy burger with a smoky flavor.'},
-    {id:5, title:'Lentil Soup', cat:'main', img:'assets/recipe5.jpg', desc:'A warm and nutritious soup.'},
-    {id:6, title:'Veggie Tacos', cat:'vegan', img:'assets/recipe1.jpg', desc:'Healthy Mexican tacos with vegetables.'},
-    {id:7, title:'Chocolate Cake', cat:'dessert', img:'assets/recipe2.jpg', desc:'Rich dark chocolate cake.'},
-    {id:8, title:'Tomato Pasta', cat:'quick', img:'assets/recipe3.jpg', desc:'Quick pasta with fresh tomato sauce.'}
-  ];
+document.addEventListener('DOMContentLoaded', async ()=>{
+
+  // تحميل الوصفات من Supabase أو استخدام البيانات المحلية
+  let recipes = [];
+  
+  if (isSupabaseAvailable()) {
+    try {
+      const { data, error } = await supabase
+        .from('recipes')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.warn('خطأ في تحميل الوصفات من Supabase، استخدام البيانات المحلية:', error);
+        recipes = defaultRecipes;
+      } else {
+        recipes = data.length > 0 ? data : defaultRecipes;
+        console.log('✅ تم تحميل الوصفات من Supabase');
+      }
+    } catch (err) {
+      console.warn('تعذر الاتصال بـ Supabase، استخدام البيانات المحلية:', err);
+      recipes = defaultRecipes;
+    }
+  } else {
+    console.log('📝 استخدام البيانات المحلية (Supabase غير متوفر)');
+    recipes = defaultRecipes;
+  }
 
   const recipesGrid = document.getElementById('recipesGrid');
   const searchInput = document.getElementById('searchInput');
@@ -27,7 +44,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       card.innerHTML = `
         <img src="${r.img}" alt="${r.title}" loading="lazy" />
         <h4>${r.title}</h4>
-        <p class="muted">${r.desc}</p>
+        <p class="muted">${r.date || 'Traditional recipe'}</p>
         <div class="meta">
           <span>${r.cat}</span>
           <button class="icon-like" data-id="${r.id}" aria-label="save" style="background:${isFav?'var(--beige)':'transparent'};color:${isFav?'white':'inherit'}">♥</button>
@@ -36,7 +53,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       recipesGrid.appendChild(card);
     });
 
-    // attach like handlers
+    // إضافة أحداث زر الإعجاب
     document.querySelectorAll('.icon-like').forEach(btn=>{
       btn.addEventListener('click', (e)=>{
         const id = Number(btn.dataset.id);
@@ -60,48 +77,95 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return JSON.parse(localStorage.getItem('fav_recipes')||'[]');
     }catch(e){ return [];}
   }
-  function saveFavorites(arr){ localStorage.setItem('fav_recipes', JSON.stringify(arr)); }
+  
+  function saveFavorites(arr){ 
+    localStorage.setItem('fav_recipes', JSON.stringify(arr)); 
+  }
 
   function applyFilters(){
     if(!searchInput || !filterSelect) return;
     const q = searchInput.value.trim().toLowerCase();
     const f = filterSelect.value;
     const filtered = recipes.filter(r=>{
-      const matchesQ = r.title.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q);
+      const matchesQ = r.title.toLowerCase().includes(q) || (r.date && r.date.toLowerCase().includes(q));
       const matchesF = (f === 'all') || (r.cat === f);
       return matchesQ && matchesF;
     });
     render(filtered);
   }
 
-  // initial setup
+  // إعداد أولي
   if(recipesGrid) render(recipes);
 
   if(searchInput) searchInput.addEventListener('input', applyFilters);
   if(filterSelect) filterSelect.addEventListener('change', applyFilters);
 
-  // contact form demo
+  // نموذج التواصل
   const contactForm = document.getElementById('contactForm');
   if(contactForm){
-    contactForm.addEventListener('submit', (e)=>{
+    contactForm.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      alert('Message sent! (Demo)');
-      contactForm.reset();
+      const name = document.getElementById('cname').value;
+      const email = document.getElementById('cemail').value;
+      const message = document.getElementById('cmsg').value;
+      
+      if (isSupabaseAvailable()) {
+        try {
+          const { error } = await supabase
+            .from('contact_messages')
+            .insert([{ name, email, message }]);
+          
+          if (error) throw error;
+          
+          alert('تم إرسال الرسالة بنجاح! ✅');
+          contactForm.reset();
+        } catch (err) {
+          console.error('خطأ في إرسال الرسالة:', err);
+          alert('حدث خطأ في الإرسال. يرجى المحاولة لاحقاً.');
+        }
+      } else {
+        // عرض رسالة عندما Supabase غير متوفر
+        alert(`تم استلام رسالتك! (وضع Demo)\n\nالاسم: ${name}\nالبريد: ${email}\n\nملاحظة: لحفظ الرسائل، قم بإعداد Supabase`);
+        contactForm.reset();
+      }
     });
   }
 
-  // mobile menu
+  // القائمة المحمولة
   const menuBtn = document.getElementById('menuBtn');
   const mainNav = document.getElementById('mainNav');
   if(menuBtn && mainNav){
     menuBtn.addEventListener('click', ()=> {
       mainNav.classList.toggle('mobile-active');
     });
-    // close menu when clicking on a link
+    // إغلاق القائمة عند الضغط على أي رابط
     mainNav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mainNav.classList.remove('mobile-active');
       });
+    });
+  }
+
+  // الوصول للوحة الإدارة - نقر ثلاثي على الشعار
+  const logo = document.querySelector('.logo');
+  if(logo) {
+    let clickCount = 0;
+    let clickTimer = null;
+    
+    logo.addEventListener('click', (e) => {
+      clickCount++;
+      
+      if(clickTimer) clearTimeout(clickTimer);
+      
+      if(clickCount === 3) {
+        e.preventDefault();
+        window.location.href = 'admin.html';
+        clickCount = 0;
+      }
+      
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+      }, 500);
     });
   }
 
