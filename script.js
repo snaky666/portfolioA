@@ -157,15 +157,15 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     
     // عند بدء الضغط (الفأرة أو اللمس)
     logo.addEventListener('mousedown', (e) => {
+      e.preventDefault();
       pressTimer = setTimeout(() => {
-        e.preventDefault();
         window.location.href = 'admin.html';
       }, 2000); // 2 ثانية ضغط مطول
     });
     
     logo.addEventListener('touchstart', (e) => {
+      e.preventDefault();
       pressTimer = setTimeout(() => {
-        e.preventDefault();
         window.location.href = 'admin.html';
       }, 2000);
     });
