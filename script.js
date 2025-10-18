@@ -1,3 +1,4 @@
+
 // script.js — recipes, search, favorites with optional Supabase support
 import { supabase, isSupabaseAvailable, defaultRecipes, testConnection } from './supabase-config.js';
 
@@ -5,12 +6,12 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   // اختبار الاتصال بـ Supabase
   console.log('🔍 جاري التحقق من اتصال Supabase...');
-  await testConnection();
+  const connected = await testConnection();
 
   // تحميل الوصفات من Supabase أو استخدام البيانات المحلية
   let recipes = [];
   
-  if (isSupabaseAvailable()) {
+  if (connected && isSupabaseAvailable()) {
     try {
       const { data, error } = await supabase
         .from('recipes')
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
         console.warn('خطأ في تحميل الوصفات من Supabase، استخدام البيانات المحلية:', error);
         recipes = defaultRecipes;
       } else {
-        recipes = data.length > 0 ? data : defaultRecipes;
+        recipes = data && data.length > 0 ? data : defaultRecipes;
         console.log('✅ تم تحميل الوصفات من Supabase');
       }
     } catch (err) {
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   }
 
   const recipesGrid = document.getElementById('recipesGrid');
+  const favoritesGrid = document.getElementById('favoritesGrid');
   const searchInput = document.getElementById('searchInput');
   const filterSelect = document.getElementById('filterSelect');
 
@@ -72,6 +74,47 @@ document.addEventListener('DOMContentLoaded', async ()=>{
           btn.style.color = 'white';
         }
         saveFavorites(favs);
+        renderFavorites();
+      });
+    });
+  }
+
+  function renderFavorites(){
+    if(!favoritesGrid) return;
+    favoritesGrid.innerHTML = '';
+    const favs = loadFavorites();
+    const favoriteRecipes = recipes.filter(r => favs.includes(r.id));
+    
+    if(favoriteRecipes.length === 0) {
+      favoritesGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:var(--muted);">لا توجد وصفات مفضلة بعد</p>';
+      return;
+    }
+    
+    favoriteRecipes.forEach(r=>{
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${r.img}" alt="${r.title}" loading="lazy" />
+        <h4>${r.title}</h4>
+        <p class="muted">${r.date || 'Traditional recipe'}</p>
+        <div class="meta">
+          <span>${r.cat}</span>
+          <button class="icon-like" data-id="${r.id}" aria-label="remove" style="background:var(--beige);color:white">♥</button>
+        </div>
+      `;
+      favoritesGrid.appendChild(card);
+    });
+
+    // إضافة أحداث زر الإعجاب في المفضلة
+    favoritesGrid.querySelectorAll('.icon-like').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const id = Number(btn.dataset.id);
+        const favs = loadFavorites();
+        const idx = favs.indexOf(id);
+        if(idx > -1) favs.splice(idx,1);
+        saveFavorites(favs);
+        renderFavorites();
+        render(recipes);
       });
     });
   }
@@ -100,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   // إعداد أولي
   if(recipesGrid) render(recipes);
+  if(favoritesGrid) renderFavorites();
 
   if(searchInput) searchInput.addEventListener('input', applyFilters);
   if(filterSelect) filterSelect.addEventListener('change', applyFilters);
@@ -113,7 +157,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       const email = document.getElementById('cemail').value;
       const message = document.getElementById('cmsg').value;
       
-      if (isSupabaseAvailable()) {
+      if (connected && isSupabaseAvailable()) {
         try {
           const { error } = await supabase
             .from('contact_messages')
@@ -128,7 +172,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
           alert('حدث خطأ في الإرسال. يرجى المحاولة لاحقاً.');
         }
       } else {
-        // عرض رسالة عندما Supabase غير متوفر
         alert(`تم استلام رسالتك! (وضع Demo)\n\nالاسم: ${name}\nالبريد: ${email}\n\nملاحظة: لحفظ الرسائل، قم بإعداد Supabase`);
         contactForm.reset();
       }
@@ -142,7 +185,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     menuBtn.addEventListener('click', ()=> {
       mainNav.classList.toggle('mobile-active');
     });
-    // إغلاق القائمة عند الضغط على أي رابط
     mainNav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mainNav.classList.remove('mobile-active');
@@ -155,12 +197,11 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   if(logo) {
     let pressTimer = null;
     
-    // عند بدء الضغط (الفأرة أو اللمس)
     logo.addEventListener('mousedown', (e) => {
       e.preventDefault();
       pressTimer = setTimeout(() => {
         window.location.href = 'admin.html';
-      }, 2000); // 2 ثانية ضغط مطول
+      }, 2000);
     });
     
     logo.addEventListener('touchstart', (e) => {
@@ -168,9 +209,8 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       pressTimer = setTimeout(() => {
         window.location.href = 'admin.html';
       }, 2000);
-    });
+    }, { passive: false });
     
-    // إلغاء المؤقت عند رفع الضغط
     logo.addEventListener('mouseup', () => {
       if(pressTimer) clearTimeout(pressTimer);
     });
@@ -179,7 +219,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       if(pressTimer) clearTimeout(pressTimer);
     });
     
-    // إلغاء المؤقت عند تحريك المؤشر خارج الشعار
     logo.addEventListener('mouseleave', () => {
       if(pressTimer) clearTimeout(pressTimer);
     });

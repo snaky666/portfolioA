@@ -1,3 +1,4 @@
+
 // supabase-config.js
 // استيراد Supabase من CDN
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/+esm';
@@ -16,12 +17,12 @@ export const supabase = hasValidKeys ? createClient(supabaseUrl, supabaseKey) : 
 
 // دالة للتحقق من توفر Supabase
 export function isSupabaseAvailable() {
-  return supabase !== null;
+  return supabase !== null && hasValidKeys;
 }
 
 // اختبار الاتصال
 export async function testConnection() {
-  if (!supabase) {
+  if (!supabase || !hasValidKeys) {
     console.error('❌ Supabase غير متصل - المفاتيح غير صحيحة');
     return false;
   }
@@ -29,18 +30,19 @@ export async function testConnection() {
   try {
     const { data, error } = await supabase
       .from('recipes')
-      .select('count')
-      .limit(1);
+      .select('count', { count: 'exact', head: true });
     
     if (error) {
       console.error('❌ خطأ في الاتصال بـ Supabase:', error.message);
+      console.error('تفاصيل الخطأ:', error);
       return false;
     }
     
     console.log('✅ Supabase متصل بنجاح!');
     return true;
   } catch (err) {
-    console.error('❌ فشل الاتصال بـ Supabase:', err);
+    console.error('❌ فشل الاتصال بـ Supabase:', err.message);
+    console.error('تفاصيل:', err);
     return false;
   }
 }

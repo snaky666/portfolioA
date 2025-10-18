@@ -333,7 +333,7 @@
   </div>
 
   <script type="module">
-    import { supabase, isSupabaseAvailable } from './supabase-config.js';
+    import { supabase, isSupabaseAvailable, testConnection } from './supabase-config.js';
     
     const ADMIN_USERNAME = 'amira19';
     const ADMIN_PASSWORD = 'amira19';
@@ -343,6 +343,15 @@
     const loginContainer = document.getElementById('loginContainer');
     const adminDashboard = document.getElementById('adminDashboard');
     const logoutBtn = document.getElementById('logoutBtn');
+
+    // اختبار الاتصال بـ Supabase
+    let supabaseConnected = false;
+    testConnection().then(connected => {
+      supabaseConnected = connected;
+      if(!connected) {
+        console.warn('⚠️ Supabase غير متصل - لن يتم حفظ البيانات');
+      }
+    });
 
     // Check if already logged in
     if(sessionStorage.getItem('adminLoggedIn') === 'true') {
@@ -402,29 +411,33 @@
         favorite: document.getElementById('recipeFavorite').checked
       };
 
-      if (!isSupabaseAvailable() || !supabase) {
-        alert('Supabase غير متصل. يرجى التحقق من الإعدادات.');
+      if (!supabaseConnected || !isSupabaseAvailable() || !supabase) {
+        alert('⚠️ Supabase غير متصل حالياً.\n\nيرجى التحقق من:\n1. اتصال الإنترنت\n2. إعدادات Supabase في supabase-config.js\n3. صلاحيات قاعدة البيانات');
         return;
       }
 
       try {
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from('recipes')
-          .insert([newRecipe]);
+          .insert([newRecipe])
+          .select();
 
         if (error) throw error;
 
         // Show success message
+        recipeSuccess.textContent = `✅ تم إضافة الوصفة "${newRecipe.title}" بنجاح!`;
         recipeSuccess.classList.add('show');
         setTimeout(() => {
           recipeSuccess.classList.remove('show');
-        }, 3000);
+        }, 4000);
 
         // Reset form
         addRecipeForm.reset();
+        
+        console.log('✅ تم إضافة الوصفة:', data);
       } catch (err) {
-        console.error('Error adding recipe:', err);
-        alert('حدث خطأ في إضافة الوصفة. يرجى المحاولة مرة أخرى.');
+        console.error('❌ خطأ في إضافة الوصفة:', err);
+        alert(`حدث خطأ في إضافة الوصفة:\n\n${err.message}\n\nيرجى المحاولة مرة أخرى أو التحقق من إعدادات Supabase.`);
       }
     });
   </script>
