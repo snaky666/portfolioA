@@ -150,26 +150,42 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     });
   }
 
-  // الوصول للوحة الإدارة - نقر ثلاثي على الشعار
+  // الوصول للوحة الإدارة - ضغطة مطولة على الشعار
   const logo = document.querySelector('.logo');
   if(logo) {
-    let clickCount = 0;
-    let clickTimer = null;
+    let pressTimer = null;
     
-    logo.addEventListener('click', (e) => {
-      clickCount++;
-      
-      if(clickTimer) clearTimeout(clickTimer);
-      
-      if(clickCount === 3) {
+    // عند بدء الضغط (الفأرة أو اللمس)
+    logo.addEventListener('mousedown', (e) => {
+      pressTimer = setTimeout(() => {
         e.preventDefault();
         window.location.href = 'admin.html';
-        clickCount = 0;
-      }
-      
-      clickTimer = setTimeout(() => {
-        clickCount = 0;
-      }, 500);
+      }, 2000); // 2 ثانية ضغط مطول
+    });
+    
+    logo.addEventListener('touchstart', (e) => {
+      pressTimer = setTimeout(() => {
+        e.preventDefault();
+        window.location.href = 'admin.html';
+      }, 2000);
+    });
+    
+    // إلغاء المؤقت عند رفع الضغط
+    logo.addEventListener('mouseup', () => {
+      if(pressTimer) clearTimeout(pressTimer);
+    });
+    
+    logo.addEventListener('touchend', () => {
+      if(pressTimer) clearTimeout(pressTimer);
+    });
+    
+    // إلغاء المؤقت عند تحريك المؤشر خارج الشعار
+    logo.addEventListener('mouseleave', () => {
+      if(pressTimer) clearTimeout(pressTimer);
+    });
+    
+    logo.addEventListener('touchcancel', () => {
+      if(pressTimer) clearTimeout(pressTimer);
     });
   }
 
