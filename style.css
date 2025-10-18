@@ -824,6 +824,42 @@ body::before {
     inset 0 0 0 8px rgba(212,197,176,0.25);
 }
 
+.about-logo {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--beige-dark), var(--beige));
+  border-radius: 50%;
+  box-shadow: 
+    var(--shadow-lg),
+    inset 0 0 0 8px rgba(255,255,255,0.2);
+  border: 4px solid var(--white);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.about-logo h1 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--white);
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.about-logo:hover {
+  transform: scale(1.08) rotate(-5deg);
+  box-shadow: 
+    var(--shadow-xl),
+    inset 0 0 0 8px rgba(255,255,255,0.3);
+  background: linear-gradient(135deg, var(--beige), var(--beige-dark));
+}
+
 .about-text {
   position: relative;
   z-index: 1;
