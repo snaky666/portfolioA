@@ -3,8 +3,8 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
 // للحصول على هذه القيم، اتبع التعليمات في SUPABASE_SETUP.md
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+const supabaseUrl = 'https://cwrtirkgsfvqmexeatfu.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3cnRpcmtnc2Z2cW1leGVhdGZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1NjQzNzUsImV4cCI6MjA3NjE0MDM3NX0.YaZE1opSSpA95lm7fGT3ZilhXo9eI9eZK5Q-Q15sUEs';
 
 // التحقق من وجود مفاتيح صحيحة
 const hasValidKeys = supabaseUrl !== 'YOUR_SUPABASE_URL' && 
