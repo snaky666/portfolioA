@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aiieras — Admin Panel</title>
+  <link rel="icon" type="image/x-icon" href="assets/logo.ico">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--beige-light) 0%, var(--bg) 100%);
+      padding: 20px;
+    }
+
+    .admin-login-box {
+      background: var(--white);
+      padding: 50px 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .admin-login-box h2 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 2.5rem;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .admin-login-box p {
+      color: var(--muted);
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+    }
+
+    .admin-form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .admin-form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .admin-form-group input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid var(--beige);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .admin-form-group input:focus {
+      outline: none;
+      border-color: var(--beige-dark);
+      box-shadow: 0 0 0 4px rgba(212, 197, 176, 0.1);
+    }
+
+    .admin-login-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .admin-login-btn:hover {
+      background: var(--beige-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .admin-error {
+      background: #ffe5e5;
+      color: #d63031;
+      padding: 12px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .admin-error.show {
+      display: block;
+    }
+
+    .admin-dashboard {
+      display: none;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .admin-dashboard.active {
+      display: block;
+    }
+
+    .admin-header {
+      background: var(--white);
+      padding: 20px 30px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-header h1 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 2rem;
+      color: var(--black);
+      margin: 0;
+    }
+
+    .admin-logout-btn {
+      padding: 12px 24px;
+      background: var(--beige-dark);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .admin-logout-btn:hover {
+      background: var(--black);
+    }
+
+    .admin-content-manager {
+      background: var(--white);
+      padding: 30px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-content-manager h3 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1.5rem;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--beige-light);
+      padding-bottom: 10px;
+    }
+
+    .admin-tab {
+      padding: 10px 20px;
+      background: transparent;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+    }
+
+    .admin-tab.active {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    .admin-tab-content {
+      display: none;
+    }
+
+    .admin-tab-content.active {
+      display: block;
+    }
+
+    .admin-recipe-form {
+      display: grid;
+      gap: 20px;
+    }
+
+    .admin-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .admin-success {
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .admin-success.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .admin-login-box {
+        padding: 40px 30px;
+      }
+
+      .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .admin-form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="admin-container" id="loginContainer">
+    <div class="admin-login-box">
+      <h2>Aiieras</h2>
+      <p>Admin Panel Access</p>
+      
+      <div class="admin-error" id="loginError">Invalid username or password</div>
+      
+      <form id="loginForm">
+        <div class="admin-form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required autocomplete="username" />
+        </div>
+        
+        <div class="admin-form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password" />
+        </div>
+        
+        <button type="submit" class="admin-login-btn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="admin-dashboard" id="adminDashboard">
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+      <button class="admin-logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <div class="admin-content-manager">
+      <h3>Content Management</h3>
+      
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="recipes">Add Recipe</button>
+        <button class="admin-tab" data-tab="content">Edit Pages</button>
+        <button class="admin-tab" data-tab="images">Manage Images</button>
+      </div>
+
+      <div class="admin-tab-content active" id="recipes-tab">
+        <div class="admin-success" id="recipeSuccess">Recipe added successfully!</div>
+        
+        <form class="admin-recipe-form" id="addRecipeForm">
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="recipeTitle">Recipe Title</label>
+              <input type="text" id="recipeTitle" name="recipeTitle" required />
+            </div>
+            
+            <div class="admin-form-group">
+              <label for="recipeCategory">Category</label>
+              <select id="recipeCategory" name="recipeCategory" style="width: 100%; padding: 14px 18px; border: 2px solid var(--beige); border-radius: var(--radius); font-size: 1rem;">
+                <option value="main">Main Dishes</option>
+                <option value="dessert">Desserts</option>
+                <option value="quick">Quick Meals</option>
+                <option value="vegan">Vegan</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="recipeImage">Image URL</label>
+              <input type="text" id="recipeImage" name="recipeImage" placeholder="assets/recipe1.jpg" required />
+            </div>
+            
+            <div class="admin-form-group">
+              <label for="recipeDate">Date</label>
+              <input type="text" id="recipeDate" name="recipeDate" placeholder="October 18, 2025" required />
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label>
+              <input type="checkbox" id="recipeFavorite" name="recipeFavorite" />
+              Mark as Favorite
+            </label>
+          </div>
+
+          <button type="submit" class="admin-login-btn">Add Recipe</button>
+        </form>
+      </div>
+
+      <div class="admin-tab-content" id="content-tab">
+        <p style="color: var(--muted); text-align: center; padding: 40px;">
+          Page editing feature - Coming soon
+        </p>
+      </div>
+
+      <div class="admin-tab-content" id="images-tab">
+        <p style="color: var(--muted); text-align: center; padding: 40px;">
+          Image management feature - Coming soon
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_USERNAME = 'amira19';
+    const ADMIN_PASSWORD = 'amira19';
+
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const loginContainer = document.getElementById('loginContainer');
+    const adminDashboard = document.getElementById('adminDashboard');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Check if already logged in
+    if(sessionStorage.getItem('adminLoggedIn') === 'true') {
+      loginContainer.style.display = 'none';
+      adminDashboard.classList.add('active');
+    }
+
+    // Login handling
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if(username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        loginContainer.style.display = 'none';
+        adminDashboard.classList.add('active');
+        loginError.classList.remove('show');
+      } else {
+        loginError.classList.add('show');
+      }
+    });
+
+    // Logout handling
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('adminLoggedIn');
+      window.location.href = 'index.html';
+    });
+
+    // Tab switching
+    const tabs = document.querySelectorAll('.admin-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        const tabContents = document.querySelectorAll('.admin-tab-content');
+        tabContents.forEach(tc => tc.classList.remove('active'));
+        
+        const targetTab = document.getElementById(tab.dataset.tab + '-tab');
+        if(targetTab) targetTab.classList.add('active');
+      });
+    });
+
+    // Add recipe handling
+    const addRecipeForm = document.getElementById('addRecipeForm');
+    const recipeSuccess = document.getElementById('recipeSuccess');
+
+    addRecipeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const newRecipe = {
+        id: Date.now(),
+        title: document.getElementById('recipeTitle').value,
+        cat: document.getElementById('recipeCategory').value,
+        img: document.getElementById('recipeImage').value,
+        date: document.getElementById('recipeDate').value,
+        favorite: document.getElementById('recipeFavorite').checked
+      };
+
+      // Get existing recipes from localStorage
+      let recipes = JSON.parse(localStorage.getItem('admin_recipes') || '[]');
+      recipes.push(newRecipe);
+      localStorage.setItem('admin_recipes', JSON.stringify(recipes));
+
+      // Show success message
+      recipeSuccess.classList.add('show');
+      setTimeout(() => {
+        recipeSuccess.classList.remove('show');
+      }, 3000);
+
+      // Reset form
+      addRecipeForm.reset();
+    });
+  </script>
+</body>
+</html>
