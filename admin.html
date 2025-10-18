@@ -332,7 +332,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { supabase } from './supabase-config.js';
+    
     const ADMIN_USERNAME = 'amira19';
     const ADMIN_PASSWORD = 'amira19';
 
@@ -385,15 +387,14 @@
       });
     });
 
-    // Add recipe handling
+    // Add recipe handling with Supabase
     const addRecipeForm = document.getElementById('addRecipeForm');
     const recipeSuccess = document.getElementById('recipeSuccess');
 
-    addRecipeForm.addEventListener('submit', (e) => {
+    addRecipeForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const newRecipe = {
-        id: Date.now(),
         title: document.getElementById('recipeTitle').value,
         cat: document.getElementById('recipeCategory').value,
         img: document.getElementById('recipeImage').value,
@@ -401,19 +402,25 @@
         favorite: document.getElementById('recipeFavorite').checked
       };
 
-      // Get existing recipes from localStorage
-      let recipes = JSON.parse(localStorage.getItem('admin_recipes') || '[]');
-      recipes.push(newRecipe);
-      localStorage.setItem('admin_recipes', JSON.stringify(recipes));
+      try {
+        const { error } = await supabase
+          .from('recipes')
+          .insert([newRecipe]);
 
-      // Show success message
-      recipeSuccess.classList.add('show');
-      setTimeout(() => {
-        recipeSuccess.classList.remove('show');
-      }, 3000);
+        if (error) throw error;
 
-      // Reset form
-      addRecipeForm.reset();
+        // Show success message
+        recipeSuccess.classList.add('show');
+        setTimeout(() => {
+          recipeSuccess.classList.remove('show');
+        }, 3000);
+
+        // Reset form
+        addRecipeForm.reset();
+      } catch (err) {
+        console.error('Error adding recipe:', err);
+        alert('Error adding recipe. Please try again.');
+      }
     });
   </script>
 </body>

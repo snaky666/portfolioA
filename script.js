@@ -1,24 +1,42 @@
-// script.js — recipes, search, favorites
-document.addEventListener('DOMContentLoaded', ()=>{
+
+// script.js — recipes, search, favorites with Supabase
+import { supabase } from './supabase-config.js';
+
+document.addEventListener('DOMContentLoaded', async ()=>{
 
   const defaultRecipes = [
-    {id:1, title:'Vegetable Couscous with Fresh Herbs', cat:'main', img:'assets/recipe1.jpg', date:'October 15, 2025', favorite: true},
-    {id:2, title:'Almond Honey Baklava', cat:'dessert', img:'assets/recipe2.jpg', date:'October 12, 2025', favorite: true},
-    {id:3, title:'Quick Greek Salad', cat:'quick', img:'assets/recipe3.jpg', date:'October 10, 2025', favorite: false},
-    {id:4, title:'Vegan Plant-Based Burger', cat:'vegan', img:'assets/recipe4.jpg', date:'October 8, 2025', favorite: true},
-    {id:5, title:'Warm Lentil Soup Bowl', cat:'main', img:'assets/recipe5.jpg', date:'October 5, 2025', favorite: false},
-    {id:6, title:'Healthy Veggie Tacos', cat:'vegan', img:'assets/recipe1.jpg', date:'October 3, 2025', favorite: false},
-    {id:7, title:'Rich Chocolate Cake', cat:'dessert', img:'assets/recipe2.jpg', date:'September 28, 2025', favorite: false},
-    {id:8, title:'Fresh Tomato Pasta', cat:'quick', img:'assets/recipe3.jpg', date:'September 25, 2025', favorite: false},
-    {id:9, title:'Mediterranean Bowl', cat:'main', img:'assets/recipe4.jpg', date:'September 20, 2025', favorite: false},
-    {id:10, title:'Strawberry Shortcake', cat:'dessert', img:'assets/recipe5.jpg', date:'September 15, 2025', favorite: false},
-    {id:11, title:'Quinoa Buddha Bowl', cat:'vegan', img:'assets/recipe1.jpg', date:'September 10, 2025', favorite: false},
-    {id:12, title:'Caprese Sandwich', cat:'quick', img:'assets/recipe2.jpg', date:'September 5, 2025', favorite: false}
+    {title:'Vegetable Couscous with Fresh Herbs', cat:'main', img:'assets/recipe1.jpg', date:'October 15, 2025', favorite: true},
+    {title:'Almond Honey Baklava', cat:'dessert', img:'assets/recipe2.jpg', date:'October 12, 2025', favorite: true},
+    {title:'Quick Greek Salad', cat:'quick', img:'assets/recipe3.jpg', date:'October 10, 2025', favorite: false},
+    {title:'Vegan Plant-Based Burger', cat:'vegan', img:'assets/recipe4.jpg', date:'October 8, 2025', favorite: true},
+    {title:'Warm Lentil Soup Bowl', cat:'main', img:'assets/recipe5.jpg', date:'October 5, 2025', favorite: false},
+    {title:'Healthy Veggie Tacos', cat:'vegan', img:'assets/recipe1.jpg', date:'October 3, 2025', favorite: false},
+    {title:'Rich Chocolate Cake', cat:'dessert', img:'assets/recipe2.jpg', date:'September 28, 2025', favorite: false},
+    {title:'Fresh Tomato Pasta', cat:'quick', img:'assets/recipe3.jpg', date:'September 25, 2025', favorite: false},
+    {title:'Mediterranean Bowl', cat:'main', img:'assets/recipe4.jpg', date:'September 20, 2025', favorite: false},
+    {title:'Strawberry Shortcake', cat:'dessert', img:'assets/recipe5.jpg', date:'September 15, 2025', favorite: false},
+    {title:'Quinoa Buddha Bowl', cat:'vegan', img:'assets/recipe1.jpg', date:'September 10, 2025', favorite: false},
+    {title:'Caprese Sandwich', cat:'quick', img:'assets/recipe2.jpg', date:'September 5, 2025', favorite: false}
   ];
 
-  // Load recipes from localStorage if admin added any
-  const adminRecipes = JSON.parse(localStorage.getItem('admin_recipes') || '[]');
-  const recipes = [...defaultRecipes, ...adminRecipes];
+  // Load recipes from Supabase
+  let recipes = [];
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      console.error('Error loading recipes:', error);
+      recipes = defaultRecipes;
+    } else {
+      recipes = data.length > 0 ? data : defaultRecipes;
+    }
+  } catch (err) {
+    console.error('Supabase connection error:', err);
+    recipes = defaultRecipes;
+  }
 
   const recipesGrid = document.getElementById('recipesGrid');
   const favoritesGrid = document.getElementById('favoritesGrid');
@@ -53,10 +71,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // contact form demo
   const contactForm = document.getElementById('contactForm');
   if(contactForm){
-    contactForm.addEventListener('submit', (e)=>{
+    contactForm.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      alert('Message sent! (Demo)');
-      contactForm.reset();
+      const name = document.getElementById('cname').value;
+      const email = document.getElementById('cemail').value;
+      const message = document.getElementById('cmsg').value;
+      
+      try {
+        const { error } = await supabase
+          .from('contact_messages')
+          .insert([{ name, email, message }]);
+        
+        if (error) throw error;
+        
+        alert('Message sent successfully!');
+        contactForm.reset();
+      } catch (err) {
+        console.error('Error sending message:', err);
+        alert('Error sending message. Please try again.');
+      }
     });
   }
 
@@ -67,7 +100,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     menuBtn.addEventListener('click', ()=> {
       mainNav.classList.toggle('mobile-active');
     });
-    // close menu when clicking on a link
     mainNav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mainNav.classList.remove('mobile-active');
