@@ -1,7 +1,11 @@
 // script.js — recipes, search, favorites with optional Supabase support
-import { supabase, isSupabaseAvailable, defaultRecipes } from './supabase-config.js';
+import { supabase, isSupabaseAvailable, defaultRecipes, testConnection } from './supabase-config.js';
 
 document.addEventListener('DOMContentLoaded', async ()=>{
+
+  // اختبار الاتصال بـ Supabase
+  console.log('🔍 جاري التحقق من اتصال Supabase...');
+  await testConnection();
 
   // تحميل الوصفات من Supabase أو استخدام البيانات المحلية
   let recipes = [];

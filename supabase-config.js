@@ -1,8 +1,8 @@
 // supabase-config.js
-// استيراد Supabase من CDN بدلاً من node_modules
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+// استيراد Supabase من CDN
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/+esm';
 
-// للحصول على هذه القيم، اتبع التعليمات في SUPABASE_SETUP.md
+// بيانات الاتصال بـ Supabase
 const supabaseUrl = 'https://cwrtirkgsfvqmexeatfu.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3cnRpcmtnc2Z2cW1leGVhdGZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1NjQzNzUsImV4cCI6MjA3NjE0MDM3NX0.YaZE1opSSpA95lm7fGT3ZilhXo9eI9eZK5Q-Q15sUEs';
 
@@ -17,6 +17,32 @@ export const supabase = hasValidKeys ? createClient(supabaseUrl, supabaseKey) : 
 // دالة للتحقق من توفر Supabase
 export function isSupabaseAvailable() {
   return supabase !== null;
+}
+
+// اختبار الاتصال
+export async function testConnection() {
+  if (!supabase) {
+    console.error('❌ Supabase غير متصل - المفاتيح غير صحيحة');
+    return false;
+  }
+  
+  try {
+    const { data, error } = await supabase
+      .from('recipes')
+      .select('count')
+      .limit(1);
+    
+    if (error) {
+      console.error('❌ خطأ في الاتصال بـ Supabase:', error.message);
+      return false;
+    }
+    
+    console.log('✅ Supabase متصل بنجاح!');
+    return true;
+  } catch (err) {
+    console.error('❌ فشل الاتصال بـ Supabase:', err);
+    return false;
+  }
 }
 
 // تصدير البيانات الافتراضية للاستخدام عند عدم توفر Supabase
