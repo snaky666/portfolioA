@@ -1,7 +1,7 @@
 // script.js — recipes, search, favorites
 document.addEventListener('DOMContentLoaded', ()=>{
 
-  const recipes = [
+  const defaultRecipes = [
     {id:1, title:'Vegetable Couscous with Fresh Herbs', cat:'main', img:'assets/recipe1.jpg', date:'October 15, 2025', favorite: true},
     {id:2, title:'Almond Honey Baklava', cat:'dessert', img:'assets/recipe2.jpg', date:'October 12, 2025', favorite: true},
     {id:3, title:'Quick Greek Salad', cat:'quick', img:'assets/recipe3.jpg', date:'October 10, 2025', favorite: false},
@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     {id:11, title:'Quinoa Buddha Bowl', cat:'vegan', img:'assets/recipe1.jpg', date:'September 10, 2025', favorite: false},
     {id:12, title:'Caprese Sandwich', cat:'quick', img:'assets/recipe2.jpg', date:'September 5, 2025', favorite: false}
   ];
+
+  // Load recipes from localStorage if admin added any
+  const adminRecipes = JSON.parse(localStorage.getItem('admin_recipes') || '[]');
+  const recipes = [...defaultRecipes, ...adminRecipes];
 
   const recipesGrid = document.getElementById('recipesGrid');
   const favoritesGrid = document.getElementById('favoritesGrid');
