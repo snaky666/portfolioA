@@ -45,23 +45,40 @@
   </header>
 
   <main>
-    <section class="recipes container" style="padding-top:80px">
-      <h3 class="section-title">Recipes</h3>
-
-      <div class="controls">
-        <input id="searchInput" placeholder="Search recipes e.g. pizza, salad..." />
-        <select id="filterSelect">
-          <option value="all">All categories</option>
-          <option value="main">Main dishes</option>
-          <option value="dessert">Desserts</option>
-          <option value="quick">Quick</option>
-          <option value="vegan">Vegan</option>
-        </select>
-      </div>
-
-      <div id="recipesGrid" class="grid">
+    <section class="recipes-simple-section">
+      <div class="recipes-simple-grid" id="recipesGrid">
         <!-- populated by JS -->
       </div>
+    </section>
+
+    <section class="recipes-favorites-section">
+      <h3 class="recipes-favorites-title">AIIERAS'S FAVORITES</h3>
+      <div class="recipes-favorites-grid" id="favoritesGrid">
+        <!-- populated by JS -->
+      </div>
+    </section>
+
+    <section class="recipes-instagram-section">
+      <h4>SUBSCRIBE TO NEWSLETTER @AIIERAS</h4>
+      <div class="recipes-instagram-grid">
+        <img src="attached_assets/stock_images/greek_salad_fresh_ve_49e98869.jpg" alt="Recipe 1" />
+        <img src="attached_assets/stock_images/couscous_vegetables__0ebf1cc6.jpg" alt="Recipe 2" />
+        <img src="attached_assets/stock_images/baklava_dessert_past_41e9c3c9.jpg" alt="Recipe 3" />
+        <img src="attached_assets/stock_images/delicious_colorful_f_e54bf9cc.jpg" alt="Recipe 4" />
+        <img src="attached_assets/stock_images/lentil_soup_bowl_war_8d296a26.jpg" alt="Recipe 5" />
+        <img src="attached_assets/stock_images/vegan_burger_plant_b_af5a3056.jpg" alt="Recipe 6" />
+        <img src="attached_assets/stock_images/female_chef_or_cooki_032ed44f.jpg" alt="Recipe 7" />
+        <img src="attached_assets/stock_images/food_photography_cul_857b8fb6.jpg" alt="Recipe 8" />
+      </div>
+    </section>
+
+    <section class="recipes-newsletter-section">
+      <h3>STAY IN THE KNOW</h3>
+      <p>Subscribe to get access to all of the latest recipes and updates!</p>
+      <form class="recipes-newsletter-form">
+        <input type="email" placeholder="Email Address" required />
+        <button type="submit" class="btn">→</button>
+      </form>
     </section>
   </main>
 

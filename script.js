@@ -2,83 +2,49 @@
 document.addEventListener('DOMContentLoaded', ()=>{
 
   const recipes = [
-    {id:1, title:'Vegetable Couscous', cat:'main', img:'assets/recipe1.jpg', desc:'A traditional Maghrebi dish with fresh vegetables.'},
-    {id:2, title:'Almond Baklava', cat:'dessert', img:'assets/recipe2.jpg', desc:'Crispy pastry layered with honey and almonds.'},
-    {id:3, title:'Quick Greek Salad', cat:'quick', img:'assets/recipe3.jpg', desc:'A refreshing and easy-to-make salad.'},
-    {id:4, title:'Vegan Burger', cat:'vegan', img:'assets/recipe4.jpg', desc:'A healthy burger with a smoky flavor.'},
-    {id:5, title:'Lentil Soup', cat:'main', img:'assets/recipe5.jpg', desc:'A warm and nutritious soup.'},
-    {id:6, title:'Veggie Tacos', cat:'vegan', img:'assets/recipe1.jpg', desc:'Healthy Mexican tacos with vegetables.'},
-    {id:7, title:'Chocolate Cake', cat:'dessert', img:'assets/recipe2.jpg', desc:'Rich dark chocolate cake.'},
-    {id:8, title:'Tomato Pasta', cat:'quick', img:'assets/recipe3.jpg', desc:'Quick pasta with fresh tomato sauce.'}
+    {id:1, title:'Vegetable Couscous with Fresh Herbs', cat:'main', img:'assets/recipe1.jpg', date:'October 15, 2025', favorite: true},
+    {id:2, title:'Almond Honey Baklava', cat:'dessert', img:'assets/recipe2.jpg', date:'October 12, 2025', favorite: true},
+    {id:3, title:'Quick Greek Salad', cat:'quick', img:'assets/recipe3.jpg', date:'October 10, 2025', favorite: false},
+    {id:4, title:'Vegan Plant-Based Burger', cat:'vegan', img:'assets/recipe4.jpg', date:'October 8, 2025', favorite: true},
+    {id:5, title:'Warm Lentil Soup Bowl', cat:'main', img:'assets/recipe5.jpg', date:'October 5, 2025', favorite: false},
+    {id:6, title:'Healthy Veggie Tacos', cat:'vegan', img:'assets/recipe1.jpg', date:'October 3, 2025', favorite: false},
+    {id:7, title:'Rich Chocolate Cake', cat:'dessert', img:'assets/recipe2.jpg', date:'September 28, 2025', favorite: false},
+    {id:8, title:'Fresh Tomato Pasta', cat:'quick', img:'assets/recipe3.jpg', date:'September 25, 2025', favorite: false},
+    {id:9, title:'Mediterranean Bowl', cat:'main', img:'assets/recipe4.jpg', date:'September 20, 2025', favorite: false},
+    {id:10, title:'Strawberry Shortcake', cat:'dessert', img:'assets/recipe5.jpg', date:'September 15, 2025', favorite: false},
+    {id:11, title:'Quinoa Buddha Bowl', cat:'vegan', img:'assets/recipe1.jpg', date:'September 10, 2025', favorite: false},
+    {id:12, title:'Caprese Sandwich', cat:'quick', img:'assets/recipe2.jpg', date:'September 5, 2025', favorite: false}
   ];
 
   const recipesGrid = document.getElementById('recipesGrid');
-  const searchInput = document.getElementById('searchInput');
-  const filterSelect = document.getElementById('filterSelect');
+  const favoritesGrid = document.getElementById('favoritesGrid');
 
-  function render(recList){
-    if(!recipesGrid) return;
-    recipesGrid.innerHTML = '';
-    const favs = loadFavorites();
+  function renderSimpleRecipes(recList, container){
+    if(!container) return;
+    container.innerHTML = '';
     recList.forEach(r=>{
       const card = document.createElement('article');
-      card.className = 'card';
-      const isFav = favs.includes(r.id);
+      card.className = 'recipe-simple-card';
       card.innerHTML = `
-        <img src="${r.img}" alt="${r.title}" loading="lazy" />
-        <h4>${r.title}</h4>
-        <p class="muted">${r.desc}</p>
-        <div class="meta">
-          <span>${r.cat}</span>
-          <button class="icon-like" data-id="${r.id}" aria-label="save" style="background:${isFav?'var(--accent)':'transparent'};color:${isFav?'white':'inherit'}">♥</button>
+        <div class="recipe-simple-image">
+          <img src="${r.img}" alt="${r.title}" loading="lazy" />
         </div>
+        <h4 class="recipe-simple-title">${r.title}</h4>
+        <p class="recipe-simple-date">${r.date}</p>
       `;
-      recipesGrid.appendChild(card);
-    });
-
-    // attach like handlers
-    document.querySelectorAll('.icon-like').forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        const id = Number(btn.dataset.id);
-        const favs = loadFavorites();
-        if(favs.includes(id)){
-          const idx = favs.indexOf(id); favs.splice(idx,1);
-          btn.style.background = 'transparent';
-          btn.style.color = 'inherit';
-        } else {
-          favs.push(id);
-          btn.style.background = 'var(--accent)';
-          btn.style.color = 'white';
-        }
-        saveFavorites(favs);
-      });
+      container.appendChild(card);
     });
   }
 
-  function loadFavorites(){
-    try{
-      return JSON.parse(localStorage.getItem('fav_recipes')||'[]');
-    }catch(e){ return [];}
-  }
-  function saveFavorites(arr){ localStorage.setItem('fav_recipes', JSON.stringify(arr)); }
-
-  function applyFilters(){
-    if(!searchInput || !filterSelect) return;
-    const q = searchInput.value.trim().toLowerCase();
-    const f = filterSelect.value;
-    const filtered = recipes.filter(r=>{
-      const matchesQ = r.title.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q);
-      const matchesF = (f === 'all') || (r.cat === f);
-      return matchesQ && matchesF;
-    });
-    render(filtered);
+  // initial setup for recipes page
+  if(recipesGrid) {
+    renderSimpleRecipes(recipes, recipesGrid);
   }
 
-  // initial setup
-  if(recipesGrid) render(recipes);
-
-  if(searchInput) searchInput.addEventListener('input', applyFilters);
-  if(filterSelect) filterSelect.addEventListener('change', applyFilters);
+  if(favoritesGrid) {
+    const favoriteRecipes = recipes.filter(r => r.favorite);
+    renderSimpleRecipes(favoriteRecipes, favoritesGrid);
+  }
 
   // contact form demo
   const contactForm = document.getElementById('contactForm');

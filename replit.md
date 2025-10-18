@@ -49,6 +49,30 @@ Aiieras is a multi-page static recipe website supporting three languages: Arabic
 
 ## Recent Setup & Updates
 
+### Oct 18, 2025 - Recipes Page Redesign - Simple Magazine Layout
+- **Complete Recipes page redesign** with clean, minimalist magazine-style layout:
+  * Removed search and filter controls for cleaner appearance
+  * Simple 3-column grid layout displaying all recipes
+  * Each recipe card shows: image (3:4 ratio) + title + date
+  * Clean, centered typography with elegant spacing
+  * Added "AIIERAS'S FAVORITES" section showcasing featured recipes
+  * Instagram-style gallery section with 8-column grid
+  * Newsletter subscription section with elegant form
+- **Enhanced recipe data**:
+  * 12 recipes total with realistic dates
+  * Favorite flag system for featured recipes section
+  * More descriptive titles (e.g., "Vegetable Couscous with Fresh Herbs")
+- **CSS improvements**:
+  * Magazine-style card hover effects with subtle lift
+  * Smooth image zoom on hover
+  * Responsive breakpoints: 3 columns → 2 columns → 1 column
+  * Clean beige/white alternating section backgrounds
+  * Professional spacing and typography hierarchy
+- **JavaScript updates**:
+  * New renderSimpleRecipes() function for clean card generation
+  * Automatic favorites filtering for featured section
+  * Removed complex search/filter functionality for simplicity
+
 ### Oct 18, 2025 - Modern About Page Redesign
 - **Complete About page redesign** with magazine-style layout inspired by modern lifestyle blogs:
   * Hero section with "HEY YOU" heading and full-width image split
